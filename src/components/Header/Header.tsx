@@ -8,6 +8,7 @@ import NavHeader from '../NavHeader'
 import { useContext } from 'react'
 import { AppContext } from 'src/context/app.context'
 import useSearchProducts from 'src/hooks/useSearchProducts'
+import { useTranslation } from 'react-i18next'
 
 // type FromData = Pick<Schema, 'name'>
 // const nameSchema = schema.pick(['name'])
@@ -16,6 +17,7 @@ export default function Header() {
   // const navigate = useNavigate()
   const { isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch, register } = useSearchProducts()
+  const { t } = useTranslation()
   // const { register, handleSubmit } = useForm<FromData>({
   //   defaultValues: {
   //     name: ''
@@ -83,7 +85,7 @@ export default function Header() {
             <div className=' flex items-center rounded-sm bg-white p-1 '>
               <input
                 className='bg-orangebg-transparent h-full w-full flex-grow border-none p-1 text-sm text-black outline-none'
-                placeholder='Free Ship Đơn Từ 0Đ'
+                placeholder={t('search_placeholder')}
                 {...register('name')}
               />
               <button className=' flex-shrink-0 rounded-sm bg-orange px-3 py-1 hover:opacity-90'>
@@ -123,7 +125,7 @@ export default function Header() {
                 <div className='border-gay-200 relative max-w-[300px] rounded-sm border bg-white shadow-md md:max-w-[400px]'>
                   {productInCart?.length !== 0 && productInCart !== undefined ? (
                     <div className='p-2'>
-                      <div className='text-sm capitalize text-gray-400'>Sản Phẩm Mới Thêm</div>
+                      <div className='text-sm capitalize text-gray-400'>{t('cart_popover_header')}</div>
                       {productInCart?.slice(0, MAX_PURCHASES).map((purchase) => (
                         <div className='mt-5 flex cursor-pointer hover:bg-gray-50' key={purchase.product._id}>
                           <div className='flex-shrink-0'>
@@ -144,11 +146,11 @@ export default function Header() {
                       ))}
                       <div className='mt-6 flex items-center justify-between'>
                         <div className='text-xs capitalize text-gray-500'>
-                          {productInCart.length > MAX_PURCHASES ? productInCart?.length - MAX_PURCHASES : ''} thêm hàng
-                          vào giỏ
+                          {productInCart.length > MAX_PURCHASES ? productInCart?.length - MAX_PURCHASES : ''}
+                          {t('cart_popover_bottom_left')}
                         </div>
                         <Link className='bg-orange px-4 py-2 capitalize text-white hover:opacity-90 ' to={'/cart'}>
-                          xem giỏ hàng
+                          {t('btn_go_to_cart')}
                         </Link>
                       </div>
                     </div>

@@ -38,6 +38,7 @@ export default function ChanePassworld() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const res = await updateProfileMutation.mutateAsync(omit(data, ['confirm_password']))
+      console.log(res)
       reset()
       toast.success(res.data.message)
     } catch (error) {

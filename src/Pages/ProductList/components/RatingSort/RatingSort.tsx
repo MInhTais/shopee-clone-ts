@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -7,6 +8,7 @@ interface Props {
 }
 export default function RatingSort({ queryConfig }: Props) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const RatingFiter = (rating: number) => {
     navigate({
@@ -78,7 +80,7 @@ export default function RatingSort({ queryConfig }: Props) {
                   </svg>
                 )
               })}
-            <div className='mx-1 text-sm'>Trở lên</div>
+            <div className='mx-1 text-sm'>{t('rate_range')}</div>
           </div>
         ))}
     </>

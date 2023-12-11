@@ -6,12 +6,14 @@ import { order as orderBy, sortBy } from 'src/constants/product'
 import { ProductConfig } from 'src/types/product.type'
 import { omit } from 'lodash'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
   pageSize: number
 }
 export default function SortProductList({ queryConfig, pageSize }: Props) {
+  const { t } = useTranslation()
   const { sort_by = sortBy.createdAt } = queryConfig
   const { order = orderBy.desc } = queryConfig
   const navigate = useNavigate()
@@ -46,7 +48,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
   return (
     <div className='flex justify-between bg-gray-300 px-3 py-4'>
       <div className='flex flex-wrap items-center justify-start gap-2 md:justify-start '>
-        <div>Sắp xếp theo </div>
+        <div>{t('sort_by')}</div>
         <Button
           className={classNames('h-8 px-4 text-sm capitalize ', {
             'bg-orange text-white  hover:bg-orange/90': isSortBy(sortBy.view),
@@ -54,7 +56,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           })}
           onClick={() => handleSort('view')}
         >
-          Phổ biến
+          {t('popular')}
         </Button>
         <Button
           className={classNames('h-8 px-4 text-sm capitalize ', {
@@ -63,7 +65,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           })}
           onClick={() => handleSort('createdAt')}
         >
-          Mới nhất
+          {t('latest')}
         </Button>
         <Button
           className={classNames('h-8 px-4 text-sm capitalize ', {
@@ -72,7 +74,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           })}
           onClick={() => handleSort('sold')}
         >
-          Bán chạy
+          {t('top_sales')}
         </Button>
         <select
           value={order || ''}
@@ -83,13 +85,13 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           })}
         >
           <option disabled className='bg-white capitalize text-black ' value={order || ''}>
-            Giá
+            {t('price')}
           </option>
           <option value={orderBy.asc} className='bg-white capitalize text-black'>
-            Giá: Thấp đến cao
+            {t('price_low_to_high')}
           </option>
           <option value={orderBy.desc} className='bg-white capitalize text-black'>
-            Giá: Cao đến thấp
+            {t('price_high_to_low')}
           </option>
         </select>
       </div>

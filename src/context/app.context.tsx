@@ -11,6 +11,8 @@ interface AppContextInterface {
   setExtendsPurchase: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
   extendsPurchase: ExtendsPurchase[]
   reset: () => void
+  isLanguage: boolean
+  setLanguage: React.Dispatch<React.SetStateAction<boolean>> // Giả sử setLanguage là kiểu string
 }
 const initialContext: AppContextInterface = {
   isAuthenticated: Boolean(getAccessTokenFromLocalStorage()),
@@ -19,7 +21,9 @@ const initialContext: AppContextInterface = {
   setProfile: () => null,
   setExtendsPurchase: () => null,
   extendsPurchase: [],
-  reset: () => null
+  reset: () => null,
+  isLanguage: false,
+  setLanguage: () => null
 }
 interface ExtendsPurchase extends Purchase {
   checked: boolean
@@ -30,6 +34,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialContext.isAuthenticated)
   const [profile, setProfile] = useState<User | null>(initialContext.profile)
   const [extendsPurchase, setExtendsPurchase] = useState<ExtendsPurchase[]>([])
+  const [isLanguage, setLanguage] = useState<boolean>(initialContext.isLanguage)
   const reset = () => {
     setIsAuthenticated(false)
     setProfile(null)
@@ -44,7 +49,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         profile,
         setProfile,
         extendsPurchase,
-        setExtendsPurchase
+        setExtendsPurchase,
+        isLanguage,
+        setLanguage
       }}
     >
       {children}

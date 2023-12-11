@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ProductRating from 'src/components/ProductRating/ProductRating'
 import path from 'src/constants/path'
@@ -8,6 +9,7 @@ interface PropsProduct {
   product: ProductType
 }
 export default function Product({ product }: PropsProduct) {
+  const { t } = useTranslation()
   return (
     <Link to={`${path.home}${generateNameId({ name: product.name, id: product._id })}`} className='decoration-inherit'>
       <div className='overflow-hidden rounded-sm bg-white shadow transition-transform duration-100 hover:translate-y-[-0.04rem] hover:shadow-md'>
@@ -35,7 +37,7 @@ export default function Product({ product }: PropsProduct) {
               />
               <div className='ml-2 text-xs sm:text-sm'>
                 <span>{formatNumberToSocialStyle(product.sold)}</span>
-                <span className='ml-1'>Đã bán</span>
+                <span className='ml-1'>{t('sold')}</span>
               </div>
             </div>
           </div>

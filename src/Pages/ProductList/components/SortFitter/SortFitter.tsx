@@ -9,6 +9,7 @@ import { NoUndefinedField } from 'src/utils/utils'
 import RatingSort from '../RatingSort'
 import { omit } from 'lodash'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
@@ -17,6 +18,7 @@ type FormData = NoUndefinedField<Pick<Schema, 'price_min' | 'price_max'>>
 const priceSchema = schema.pick(['price_min', 'price_max'])
 export default function SortFitter({ queryConfig }: Props) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const {
     control,
     handleSubmit,
@@ -75,11 +77,11 @@ export default function SortFitter({ queryConfig }: Props) {
             />
           </g>
         </svg>
-        Bộ lọc tìm kiếm
+        {t('filters')}
       </Link>
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <div className='my-5'>
-        <div>Khoảng giá</div>
+        <div>{t('price_range')}</div>
         <div className='mt-2 flex items-start justify-start '>
           <Controller
             control={control}
@@ -91,7 +93,7 @@ export default function SortFitter({ queryConfig }: Props) {
                   name='from'
                   type='text'
                   className='grow'
-                  placeholder='₫ TỪ'
+                  placeholder={t('price from')}
                   classNameError='hidden'
                   onChange={(event) => {
                     field.onChange(event), trigger('price_max')
@@ -121,7 +123,7 @@ export default function SortFitter({ queryConfig }: Props) {
                   type='text'
                   className='grow '
                   classNameError='hidden'
-                  placeholder='₫ ĐẾN'
+                  placeholder={t('price to')}
                   onChange={(event) => {
                     field.onChange(event), trigger('price_min')
                   }}
@@ -137,19 +139,19 @@ export default function SortFitter({ queryConfig }: Props) {
           className='mt-5 flex w-full items-center justify-center rounded bg-orange p-3 text-white hover:bg-orange/90'
           onClick={hanldSubmit}
         >
-          Áp dụng
+          {t('apply')}
         </Button>
       </div>
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <div className='my-5'>
-        <div className='text-sm'>Đánh giá</div>
+        <div className='text-sm'>{t('review')}</div>
         <RatingSort queryConfig={queryConfig} />
       </div>
       <Button
         onClick={clearAll}
         className='mt-5 flex w-full items-center justify-center rounded bg-orange p-3 text-white hover:bg-orange/90'
       >
-        Xóa tất cả
+        {t('btn_clear')}
       </Button>
     </div>
   )

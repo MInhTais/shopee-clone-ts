@@ -3,12 +3,14 @@ import { category } from '../../../../types/product.type'
 import path from 'src/constants/path'
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
   category: category[]
 }
 export default function AsideFitter({ queryConfig, category }: Props) {
+  const { t } = useTranslation()
   const { category: categories = 'all' } = queryConfig
   function isActive(id: string) {
     return id === categories
@@ -35,7 +37,7 @@ export default function AsideFitter({ queryConfig, category }: Props) {
             </g>
           </g>
         </svg>
-        Tất cả danh mục
+        {t('all categories')}
       </Link>
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <ul>
